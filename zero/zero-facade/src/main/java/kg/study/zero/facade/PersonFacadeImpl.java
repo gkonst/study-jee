@@ -5,7 +5,6 @@ import kg.study.zero.api.Person;
 import kg.study.zero.api.PersonFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.jws.WebService;
 
@@ -25,6 +24,6 @@ public class PersonFacadeImpl implements PersonFacade {
         LOGGER.info("save...{}", person);
         // TODO implement
         LOGGER.info("save...Ok");
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }
