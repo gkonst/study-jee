@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="PersonFacade"
+             targetNamespace="http://api.study.epam.com/"
+             xmlns:tns="http://api.study.epam.com/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <import namespace="http://api.study.epam.com/"
+            location="person.xsd"/>
+    <types>
+        <xs:schema elementFormDefault="unqualified" targetNamespace="http://api.study.epam.com/" version="1.0">
+            <xs:element name="saveRequest" type="tns:Person"/>
+            <xs:element name="saveResponse" type="xs:string"/>
+            <xs:element name="FacadeException" type="tns:FacadeException"/>
+            <xs:complexType name="FacadeException">
+                <xs:sequence>
+                    <xs:element name="message" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </types>
+
+    <message name="saveRequest">
+        <part name="person" element="tns:saveRequest"/>
+    </message>
+    <message name="saveResponse">
+        <part name="body" element="tns:saveResponse"/>
+    </message>
+    <message name="FacadeException">
+        <part name="FacadeException" element="tns:FacadeException"/>
+    </message>
+
+    <portType name="PersonFacade">
+        <operation name="save">
+            <input message="tns:saveRequest"/>
+            <output message="tns:saveResponse"/>
+            <fault name="FacadeException" message="tns:FacadeException"/>
+        </operation>
+    </portType>
+
+    <binding name="PersonFacadeSoapBinding" type="tns:PersonFacade">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="save">
+            <soap:operation soapAction="" style="document"/>
+            <input name="saveRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="saveResponse">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="FacadeException">
+                <soap:fault name="FacadeException" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="PersonFacadeService">
+        <port binding="tns:PersonFacadeSoapBinding" name="PersonFacadePort">
+            <soap:address location="http://localhost:8080/zero-facade-1.0-SNAP/PersonFacade"/>
+        </port>
+    </service>
+</definitions>
